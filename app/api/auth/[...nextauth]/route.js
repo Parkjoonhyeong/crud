@@ -24,14 +24,6 @@ export const authOptions = {
       const apiUrl = process.env.API_URL
       const { name, email } = user
 
-      const res1 = await fetch(`${apiUrl}/api/log`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      })
-
       if (account.provider === 'google' || account.provider === 'github') {
         try {
           await connectMongoDB()
@@ -49,6 +41,14 @@ export const authOptions = {
               return user
             }
           }
+
+          const res1 = await fetch(`${apiUrl}/api/log`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }),
+          })
         } catch (error) {
           console.log(error)
         }
